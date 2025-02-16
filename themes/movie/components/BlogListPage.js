@@ -19,7 +19,7 @@ export const BlogListPage = props => {
     <div className={`w-full ${showPageCover ? 'md:pr-2' : 'md:pr-12'} py-6`}>
       <div
         id='posts-wrapper'
-        className='grid md:grid-cols-2 md:gap-12 lg:grid-cols-3 lg:gap-20 xl:gap-24 2xl:grid-cols-4'>
+        className='grid md:grid-cols-2 md:gap-12 lg:grid-cols-3'>
         {posts?.map(post => (
           <BlogPostCard key={post.id} post={post} />
         ))}
