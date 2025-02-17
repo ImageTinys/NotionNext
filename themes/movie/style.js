@@ -9,7 +9,7 @@ const Style = () => {
     <style jsx global>{`
       // 底色
       .dark body {
-        background-color: black;
+        background-color: #000000; /* 修改为纯黑色 */
       }
 
       .shadow-movie {
@@ -38,7 +38,7 @@ const Style = () => {
       }
 
       .notion-carousel-route div:hover {
-        text-decoration: underline; 
+        text-decoration: underline;
       }
 
       .notion-carousel div {
