@@ -42,7 +42,7 @@ export const Logo = props => {
 
   return (
     <div className='w-60 max-w-full px-4'>
-      <div className='navbar-logo flex items-center w-full py-5 cursor-pointer'>
+      <div className='navbar-logo flex items-center w-full py-3 cursor-pointer pl-4'>
         {/* logo文字 */}
         <span
           onClick={() => {

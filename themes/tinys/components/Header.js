@@ -53,13 +53,13 @@ export const Header = props => {
     return (
         <>
             {/* <!-- ====== Navbar Section Start --> */}
-            <div className='ud-header absolute left-0 top-0 z-40 flex w-full items-center bg-transparent'>
+            <div className='ud-header absolute left-0 -top-4 z-40 flex w-full items-center bg-transparent'>
                 <div className='container'>
                     <div className='relative -mx-4 flex items-center justify-between'>
                         {/* Logo */}
                         <Logo {...props} />
                         {/* 右侧菜单 */}
-                        <div className='flex items-center gap-4 justify-end pr-16 lg:pr-0'>
+                        <div className='flex items-center gap-4 justify-end pr-12 lg:pr-0'>
                             <MenuList {...props} />
                         </div>
                     </div>

@@ -5,7 +5,7 @@
 const CONFIG = {
     /* ===== 入场欢迎页配置 ===== */
     PROXIO_WELCOME_COVER_ENABLE: true, // 是否显示入场欢迎页
-    PROXIO_WELCOME_TEXT: '点点点就能进了', // 欢迎文字
+    PROXIO_WELCOME_TEXT: '欢迎来到此网站，点击任意位置进入了', // 欢迎文字
 
     /* ===== 英雄区(Hero)配置 ===== */
     PROXIO_HERO_ENABLE: true, // 是否启用英雄区
@@ -36,7 +36,7 @@ const CONFIG = {
     PROXIO_BLOG_PLACEHOLDER_IMG_URL_4: '', // 文章4默认图片
 
     /* ===== 公告区配置 ===== */
-    PROXIO_ANNOUNCEMENT_ENABLE: false, // 是否显示公告
+    PROXIO_ANNOUNCEMENT_ENABLE: true, // 是否显示公告
 
     /* ===== 特性介绍区配置 ===== */
     PROXIO_FEATURE_ENABLE: false, // 是否显示特性区

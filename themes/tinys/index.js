@@ -65,6 +65,12 @@ const LayoutBase = props => {
             id='theme-proxio'
             className={`${siteConfig('FONT_STYLE')} min-h-screen flex flex-col dark:bg-dark scroll-smooth`}>
             <Style />
+            
+            {/* 公告浮动显示 */}
+            {props?.notice && siteConfig('PROXIO_ANNOUNCEMENT_ENABLE', true, CONFIG) && (
+              <Announcement post={props.notice} />
+            )}
+
             {/* 页头 */}
             <Header {...props} />
 
@@ -113,14 +119,6 @@ const LayoutIndex = props => {
                     </div>
                 </>
             )}
-
-            {/* 公告 */}
-            {siteConfig('PROXIO_ANNOUNCEMENT_ENABLE', true, CONFIG) && <Announcement
-                post={props?.notice}
-                className={
-                    'announncement text-center py-16'
-                } />
-                }
 
             {/* 
              * 团队介绍部分

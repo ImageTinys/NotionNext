@@ -1,15 +1,17 @@
 import { siteConfig } from '@/lib/config';
 import { useEffect, useState } from 'react';
+import { useGlobal } from '@/lib/global'
 
 const LoadingCover = ({ onFinishLoading }) => {
     const [isVisible, setIsVisible] = useState(true);
     const welcomeText = siteConfig('PROXIO_WELCOME_TEXT', '欢迎来到我们的网站！');
+    const { setLoadingCoverDone } = useGlobal()
 
     // 定义颜色变量
     const colors = {
-        backgroundStart: '#1a1a1a', // 深灰色
-        backgroundMiddle: '#4d4d4d', // 中灰色
-        backgroundEnd: '#e6e6e6', // 浅灰色
+        backgroundStart: '#000000', // 深灰色
+        backgroundMiddle: '#111111', // 中灰色
+        backgroundEnd: '#f2f2f2', // 浅灰色
         textColor: '#ffffff', // 白色
         rippleColor: 'rgba(255, 255, 255, 0.6)', // 半透明白色
     };
@@ -53,8 +55,12 @@ const LoadingCover = ({ onFinishLoading }) => {
 
     if (!isVisible) return null;
 
+    const handleClick = () => {
+        setLoadingCoverDone(true)
+    }
+
     return (
-        <div className="welcome" id="pageContainer">
+        <div className="welcome" id="pageContainer" onClick={handleClick}>
             <div className="welcome-text px-2" id="welcomeText">
                 {welcomeText}
             </div>

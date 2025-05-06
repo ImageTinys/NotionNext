@@ -20,7 +20,7 @@ const Style = () => {
     /* 主题主要背景色设置 */
     #theme-proxio .bg-primary {
         --tw-bg-opacity: 1;
-        background-color: #121212; /* 可修改为其他颜色来改变主题主色调 */
+        background-color:rgb(0, 0, 0); /* 可修改为其他颜色来改变主题主色调 */
     }
     
     /* ===== 响应式布局配置 ===== */
