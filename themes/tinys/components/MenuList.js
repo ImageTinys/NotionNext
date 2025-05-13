@@ -9,7 +9,7 @@ import { MenuItem } from './MenuItem'
  * 响应式 折叠菜单
  */
 export const MenuList = props => {
-  const { customNav, customMenu } = props
+  const { customNav, customMenu, textColor = '' } = props
   const { locale } = useGlobal()
 
   const [showMenu, setShowMenu] = useState(false) // 控制菜单展开/收起状态
@@ -71,10 +71,10 @@ export const MenuList = props => {
         onClick={toggleMenu}
         className={`absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden ${
           showMenu ? 'navbarTogglerActive' : ''
-        }`}>
-        <span className='relative my-[6px] block h-[2px] w-[30px] bg-white duration-200 transition-all'></span>
-        <span className='relative my-[6px] block h-[2px] w-[30px] bg-white duration-200 transition-all'></span>
-        <span className='relative my-[6px] block h-[2px] w-[30px] bg-white duration-200 transition-all'></span>
+        } ${textColor}`}>
+        <span className={`relative my-[6px] block h-[2px] w-[30px] duration-200 transition-all ${textColor}`}></span>
+        <span className={`relative my-[6px] block h-[2px] w-[30px] duration-200 transition-all ${textColor}`}></span>
+        <span className={`relative my-[6px] block h-[2px] w-[30px] duration-200 transition-all ${textColor}`}></span>
       </button>
 
       <nav
@@ -84,7 +84,7 @@ export const MenuList = props => {
         }`}>
         <ul className='blcok lg:flex 2xl:ml-20'>
           {links?.map((link, index) => (
-            <MenuItem key={index} link={link} />
+            <MenuItem key={index} link={link} textColor={textColor} />
           ))}
         </ul>
       </nav>

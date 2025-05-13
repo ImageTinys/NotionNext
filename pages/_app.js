@@ -6,6 +6,9 @@ import '@/styles/utility-patterns.css'
 import '@/styles/notion.css' //  重写部分notion样式
 import 'react-notion-x/src/styles.css' // 原版的react-notion-x
 
+import '../public/css/misans.css'
+import '../styles/global-hover.css'
+
 import useAdjustStyle from '@/hooks/useAdjustStyle'
 import { GlobalContextProvider } from '@/lib/global'
 import { getBaseLayoutByTheme } from '@/themes/theme'

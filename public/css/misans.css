@@ -1,0 +1,13 @@
+/* 小米字体本地引用示例 */
+@font-face {
+  font-family: 'MiSans';
+  src: url('/fonts/MiSans-Regular.woff2') format('woff2'),
+       url('/fonts/MiSans-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+body, html {
+  font-family: 'MiSans', sans-serif !important;
+}

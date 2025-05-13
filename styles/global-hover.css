@@ -1,0 +1,12 @@
+/* 全局可交互文字 hover 颜色 */
+
+/* 适用于所有 a 标签和 button，及 cursor-pointer 的元素 */
+a:hover, a:focus, button:hover, button:focus, .cursor-pointer:hover, .cursor-pointer:focus {
+  color: #007aff !important;
+  transition: color 0.2s;
+}
+
+/* 适用于 tailwind 的 group-hover 机制 */
+.group:hover .group-hover\:text-primary, .group:focus .group-hover\:text-primary {
+  color: #007aff !important;
+}
