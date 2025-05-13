@@ -1,13 +1,7 @@
 /* eslint-disable no-unreachable */
-import DashboardButton from '@/components/ui/dashboard/DashboardButton'
-import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
-import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
-import throttle from 'lodash.throttle'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState, useRef } from 'react'
-import { DarkModeButton } from './DarkModeButton'
+import { useEffect, useState, useRef } from 'react'
 import { Logo } from './Logo'
 import { MenuList } from './MenuList'
 import { analyzeBrightness } from '../utils/imageUtils'
@@ -18,9 +12,6 @@ import { analyzeBrightness } from '../utils/imageUtils'
 export const Header = props => {
     const router = useRouter()
     const { isDarkMode } = useGlobal()
-    const [buttonTextColor, setColor] = useState(
-        router.route === '/' ? 'text-white' : ''
-    )
     const [textColor, setTextColor] = useState('text-white')
 
     // 滚动与透明逻辑
@@ -50,37 +41,39 @@ export const Header = props => {
             setIsTransparent(false)
         }
         // 检测Banner亮度
-        const detectBannerBrightness = async () => {
-            if (!navbarRef.current) return;
-            let imgUrl = null;
-            const imgElements = Array.from(document.querySelectorAll('img'));
-            const bannerElements = imgElements.filter(img => {
-                const imgRect = img.getBoundingClientRect();
-                return imgRect.top < 100 && imgRect.width > window.innerWidth * 0.5;
-            });
-            if (bannerElements.length > 0) {
-                imgUrl = bannerElements[0].src;
-            }
-            if (!imgUrl) {
-                const bodyStyles = window.getComputedStyle(document.body);
-                const headerElements = document.querySelectorAll('header, .header, .banner, .hero');
-                for (const header of headerElements) {
-                    const styles = window.getComputedStyle(header);
-                    if (styles.backgroundImage && styles.backgroundImage !== 'none') {
-                        imgUrl = styles.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/i, '$1');
-                        break;
+        const detectBannerBrightness = () => {
+            (async () => {
+                if (!navbarRef.current) return;
+                let imgUrl = null;
+                const imgElements = Array.from(document.querySelectorAll('img'));
+                const bannerElements = imgElements.filter(img => {
+                    const imgRect = img.getBoundingClientRect();
+                    return imgRect.top < 100 && imgRect.width > window.innerWidth * 0.5;
+                });
+                if (bannerElements.length > 0) {
+                    imgUrl = bannerElements[0].src;
+                }
+                if (!imgUrl) {
+                    const bodyStyles = window.getComputedStyle(document.body);
+                    const headerElements = document.querySelectorAll('header, .header, .banner, .hero');
+                    for (const header of headerElements) {
+                        const styles = window.getComputedStyle(header);
+                        if (styles.backgroundImage && styles.backgroundImage !== 'none') {
+                            imgUrl = styles.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/i, '$1');
+                            break;
+                        }
+                    }
+                    if (!imgUrl && bodyStyles.backgroundImage && bodyStyles.backgroundImage !== 'none') {
+                        imgUrl = bodyStyles.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/i, '$1');
                     }
                 }
-                if (!imgUrl && bodyStyles.backgroundImage && bodyStyles.backgroundImage !== 'none') {
-                    imgUrl = bodyStyles.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/i, '$1');
+                if (imgUrl && isTransparent) {
+                    const brightness = await analyzeBrightness(imgUrl, {top:0,left:0,width:1,height:navbarHeight});
+                    setTextColor(brightness === 'light' ? 'text-white' : 'text-black');
+                } else if (!isTransparent) {
+                    setTextColor('text-black');
                 }
-            }
-            if (imgUrl && isTransparent) {
-                const brightness = await analyzeBrightness(imgUrl, {top:0,left:0,width:1,height:navbarHeight});
-                setTextColor(brightness === 'light' ? 'text-white' : 'text-black');
-            } else if (!isTransparent) {
-                setTextColor('text-black');
-            }
+            })();
         }
         detectBannerBrightness();
         window.addEventListener('scroll', detectBannerBrightness, { passive: true });
@@ -120,15 +113,7 @@ export const Header = props => {
             window.removeEventListener('scroll', detectBannerBrightness);
             window.removeEventListener('resize', detectBannerBrightness);
         }
-    }, [])
-
-    useEffect(() => {
-        if (isDarkMode || router.route === '/') {
-            setColor('text-white')
-        } else {
-            setColor('')
-        }
-    }, [isDarkMode])
+    }, [isDarkMode, router.route, isTransparent])
 
     // 状态动态生成 className
     const headerClassName = `w-full flex justify-between items-center px-8 h-[${navbarHeight}px] fixed top-0 left-0 z-40 transition-all duration-300 ease-in-out ${showNavbar ? 'translate-y-0' : '-translate-y-full'} ${isTransparent ? 'bg-transparent' : 'bg-white shadow-md'}`
@@ -141,6 +126,9 @@ export const Header = props => {
                     <Logo {...props} />
                     <div className={`flex items-center gap-4 justify-end pr-12 lg:pr-0`}>
                         <MenuList {...props} textColor={dynamicTextColor} />
+                        {/* 右侧自定义按钮示例：
+                        <button className={`ml-4 ${dynamicTextColor}`}>ABOUT</button>
+                        */}
                     </div>
                 </div>
             </div>
